@@ -1,6 +1,14 @@
 var express = require('express');
 var app = express();
 
+var fortunes = [
+    "Conquer your fears or they will conquer you.",
+    "Rivers need springs.",
+    "Do not fear what you don't know.",
+    "You will have a pleasant surprise.",
+    "Whenever possible, keep it simple.",
+   ];
+
 //(we call it public because anything in this directory will be served to the client without question
 //you declare any routes, you’ll add the static middleware
 app.use(express.static(__dirname + '/public'));
@@ -20,7 +28,8 @@ app.get('/', function(req, res){
 });
 
 app.get('/about',function(req, res){
-    res.render('about')
+    var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+    res.render('about', { fortune: randomFortune });
 });
 
 //custom 404 page
